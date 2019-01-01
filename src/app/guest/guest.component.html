@@ -1,0 +1,190 @@
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+  
+      <!-- <div class="guests" *ngIf="guestsList"> -->
+          <div class="guests">
+        <table class="table">
+          <thead class="h">
+            <tr class="h">
+              <th class="h">Guest Name</th>
+              <th class="h">Email</th>
+              <th class="h">Room Size</th>
+              <th class="h">Room No.</th>
+              <th class="h">Check In Date</th>
+              <th class="h">Check Out Date</th>
+              <th class="h">Payment</th>
+              <th class="h">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="guest" (dblclick)="editGuest(guest)" *ngFor="let guest of guestsList">
+  
+              <ng-container *ngIf="!editGuests.includes(guest); else editTD">
+                <td>{{guest.name}}</td>
+                <td>{{guest.email}}</td>
+                <td>{{guest.roomSize}}</td>
+                <td>{{guest.roomNum}}</td>
+                <!-- <td>{{guest.numNight}}</td>  -->
+                <td>{{guest.checkInDate | date}}</td>
+                <td>{{guest.checkOutDate | date}}</td>
+                <td>{{guest.payment}}</td>
+                <td>{{guest.status}}</td>
+              </ng-container>
+  
+              <ng-template #editTD>
+                <td><input type="text" name="name" id="name" (keypress)="submitGuest($event, guest)" [(ngModel)]="guest.name"
+                    placeholder="Guest" class="form-control"></td>
+  
+                <td><input type="text" name="email" id="email" (keypress)="submitGuest($event, guest)" [(ngModel)]="guest.email"
+                    placeholder="email" class="form-control"></td>
+  
+                <td><input type="text" name="roomSize" id="roomSize" (keypress)="submitGuest($event, guest)"
+                    [(ngModel)]="guest.roomSize">
+                    <select name="roomSize" class="custom-select mr-sm-2" id="roomSize">
+                        <option selected>Select...</option>
+                        <option value="Single">Single</option>
+                        <option value="Double">Double</option>
+                        <option value="Suite">Suite</option>
+                      </select>
+                  </td> 
+  
+                <td><input type="number" name="roomNum" id="roomNum" (keypress)="submitGuest($event, guest)" [(ngModel)]="guest.roomNum"
+                    placeholder=" " class="form-control"></td>
+  
+                <td><input type="date" name="checkInDate" id="checkInDate" (keypress)="submitGuest($event, guest)"
+                    [(ngModel)]="guest.checkInDate" placeholder="" class="form-control"></td>
+  
+                <td><input type="date" name="checkOutDate" id="checkOutDate" (keypress)="submitGuest($event, guest)"
+                    [(ngModel)]="guest.checkOutDate" placeholder="" class="form-control"></td>
+  
+                <td>
+                  <select name="payment" class="custom-select mr-sm-2" id="payment" (keypress)="submitGuest($event, guest)" [(ngModel)]="guest.payment">
+                    <option selected>Select...</option>
+                    <option value="Paid">Paid</option>
+                    <option value="Unpaid">Unpaid</option>
+                  </select>
+                </td>
+  
+                <td>
+                  <select name="status" class="custom-select mr-sm-2" id="status" (keypress)="submitGuest($event, guest)" [(ngModel)]="guest.status">
+                    <option selected>Select...</option>
+                    <option value="Room Assigned">Room Assigned</option>
+                    <option value="Checked In">Checked In</option>
+                    <option value="Checked Out">Checked Out</option>
+                  </select>
+                </td>
+                <!-- <td>{{todo.date | date}}</td> -->
+              </ng-template>
+  
+              <td class="o">
+                <button class="btn btn-success" (click)="doneGuest(guest)">
+                  <i class="fa fa-check"></i>
+                </button>
+                <button class="btn btn-primary" (click)="editGuest(guest)">
+                  <i class="fa fa-pencil"></i>
+                </button>
+                <button class="btn btn-danger" (click)="deleteGuest(guest)">
+                  <i class="fa fa-trash"></i>
+                </button>
+              </td>
+  
+            </tr>
+          </tbody>
+        </table>
+      </div>
+  
+<!-- ****************** -->
+
+      <div class="card">
+        <div class="card-body">
+          <form >
+  
+            <div class="form-group row">
+              <label for="name" class="col-sm-2 col-form-label">Name</label>
+              <div class="col-sm-10">
+                <input type="name" name="name" class="form-control" id="name" [(ngModel)]="newGuest.name"  placeholder="Guest Name">
+              </div>
+            </div>
+  
+            <div class="form-group row">
+              <label for="colFormLabel" class="col-sm-2 col-form-label">Email</label>
+              <div class="col-sm-10">
+                <input name="email" type="email" class="form-control" id="email" [(ngModel)]="newGuest.email" placeholder="guestemail@gmail.com">
+              </div>
+            </div>
+  
+            <div class="form-group row">
+              <label for="roomSize" class="col-sm-2 col-form-label">Room Size</label>
+              <div class="col-sm-10">
+                  <select name="roomSize" class="custom-select mr-sm-2" id="roomSize" [(ngModel)]="newGuest.roomSize" > 
+                      <option selected>Select...</option>
+                      <option value="Single">Single</option>
+                      <option value="Double">Double</option>
+                      <option value="Suite">Suite</option>
+                    </select>
+              </div>
+            </div>
+  
+            <div class="form-group row">
+              <label for="roomNum" class="col-sm-2 col-form-label">Room No.</label>
+              <div class="col-sm-10">
+                <input type="text" name="roomNum" class="form-control" id="roomNum" [(ngModel)]="newGuest.roomNum" placeholder="Room #">
+              </div>
+            </div>
+  
+            <div class="form-group row">
+              <label for="checkInDate" class="col-sm-2 col-form-label">Check In Date</label>
+              <div class="col-sm-10">
+                <input name="checkInDate" type="date" class="form-control" id="checkInDate"  
+               [(ngModel)]="newGuest.checkInDate" placeholder=" ">
+              </div>
+            </div>
+  
+            <div class="form-group row">
+              <label for="checkOutDate" class="col-sm-2 col-form-label">Check Out Date</label>
+              <div class="col-sm-10">
+                <input name="checkOutDate" type="date" class="form-control" id="checkOutDate" [(ngModel)]="newGuest.checkOutDate" placeholder=" ">
+              </div>
+            </div>
+  
+            <div class="form-group row">
+              <label for="payment" class="col-sm-2 col-form-label">Payment</label>
+              <div class="col-sm-10">
+                <select name="payment" class="custom-select mr-sm-2" id="payment" [(ngModel)]="newGuest.payment" >
+                  <option selected>Select...</option>
+                  <option value="Paid">Paid</option>
+                  <option value="Unpaid">Unpaid</option>
+                </select>
+              </div>
+            </div>
+  
+            <div class="form-group row">
+              <label for="status" class="col-sm-2 col-form-label">Status</label>
+              <div class="col-sm-10">
+                <select name="status" class="custom-select mr-sm-2" id="status">
+                  <option selected>Select...</option>
+                  <option value="Room Assigned">Room Assigned</option>
+                  <option value="Checked In">Checked In</option>
+                  <option value="Checked Out">Checked Out</option>
+                </select>
+              </div>
+            </div>
+  
+            <div class="form-group row">
+              <div class="col-sm-5"></div>
+              <div class="col-md-2">
+                <div style="text-align: center">
+                  <button type="submit" class="align-center btn btn-md btn-block btn-primary" (click)="create()">Submit</button>
+                </div>
+              </div>
+            </div>
+  
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2">
+  
+    </div>
+  </div>
