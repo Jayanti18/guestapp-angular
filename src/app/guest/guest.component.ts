@@ -36,15 +36,15 @@ export class GuestComponent implements OnInit {
   }
   //This method will get called on Create button event
   
-  create() {
-    console.log(this.newGuest)
-    this.guestService.createGuest(this.newGuest)
-      .subscribe((res) => {
-        this.guestsList.push(res.data)
-        console.log("guest data from create:", res.data)
-        this.newGuest = new Guest()
-      })
-  }
+  // create() {
+  //   console.log(this.newGuest)
+  //   this.guestService.createGuest(this.newGuest)
+  //     .subscribe((res) => {
+  //       this.guestsList.push(res.data)
+  //       console.log("guest data from create:", res.data)
+  //       this.newGuest = new Guest()
+  //     })
+  // }
 
   editGuest(guest: Guest) {
     console.log(guest)
